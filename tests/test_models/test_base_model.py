@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 '''
-    All the test for the base_model are implemented here.
+    The  test module for the base_model
 '''
 
 import unittest
@@ -31,33 +31,33 @@ class TestBase(unittest.TestCase):
 
     def test_id_type(self):
         '''
-            Checks that the type of the id is string.
+            Tests that the id is string.
         '''
         self.assertEqual("<class 'str'>", str(type(self.my_model.id)))
 
     def test_ids_differ(self):
         '''
-            Checks that the ids between two instances are different.
+            Tests that the ids between two instances are different.
         '''
         new_model = BaseModel()
         self.assertNotEqual(new_model.id, self.my_model.id)
 
     def test_name(self):
         '''
-            Checks that an attribute can be added.
+            Tests that an attribute can be added.
         '''
         self.assertEqual("Binita Rai", self.my_model.name)
 
     def test_a_updated_created_equal(self):
         '''
-            Checks that both dates are equal.
+            Tests that both dates are equal.
         '''
         self.assertEqual(self.my_model.updated_at.year,
                          self.my_model.created_at.year)
 
     def test_save(self):
         '''
-            Checks that after updating the instance; the dates differ in the
+            Tests that after updating the instance; the dates differ in the
             updated_at attribute.
         '''
         old_update = self.my_model.updated_at
@@ -66,7 +66,7 @@ class TestBase(unittest.TestCase):
 
     def test_str_overide(self):
         '''
-            Checks that the right message gets printed.
+            Tests that the right message gets printed.
         '''
         backup = sys.stdout
         inst_id = self.my_model.id
@@ -82,7 +82,7 @@ class TestBase(unittest.TestCase):
 
     def test_to_dict_type(self):
         '''
-            Checks that the to_dict method return type.
+            Tests the to_dict method return type.
         '''
 
         self.assertEqual("<class 'dict'>",
@@ -90,28 +90,28 @@ class TestBase(unittest.TestCase):
 
     def test_to_dict_class(self):
         '''
-            Checks that the __class__ key exists.
+            Tests that the __class__ key exists.
         '''
 
         self.assertEqual("BaseModel", (self.my_model.to_dict())["__class__"])
 
     def test_to_dict_type_updated_at(self):
         '''
-            Checks the type of the value of updated_at.
+            Tests the type of the value of updated_at.
         '''
         self.assertEqual("<class 'str'>",
                          str(type((self.my_model.to_dict())["updated_at"])))
 
     def test_to_dict_type_created_at(self):
         '''
-            Checks the type of the value of created_at.
+            Tests the type of the value of created_at.
         '''
         tmp = self.my_model.to_dict()
         self.assertEqual("<class 'str'>", str(type(tmp["created_at"])))
 
     def test_kwargs_instantiation(self):
         '''
-            Test that an instance is created using the
+            Tests that an instance is created using the
             key value pair.
         '''
         my_model_dict = self.my_model.to_dict()

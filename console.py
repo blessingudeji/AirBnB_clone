@@ -5,6 +5,7 @@
 import cmd
 import json
 import shlex
+from models import classes
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 # from models.user import User
@@ -110,24 +111,18 @@ class HBNBCommand(cmd.Cmd):
         '''
             Prints all string representation of all instances.
         '''
-        obj_list = []
         storage = FileStorage()
-        storage.reload()
-        objects = storage.all()
-        try:
-            if len(args) != 0:
-                eval(args)
-        except NameError:
-            print("** class doesn't exist **")
-            return
-        for key, val in objects.items():
-            if len(args) != 0:
-                if type(val) is eval(args):
-                    obj_list.append(val)
+        if args != "":
+            words = args.split(' ')
+            if words[0] not in classes:
+                print("** class doesn't exist **")
             else:
-                obj_list.append(val)
-
-        print(obj_list)
+                nl = [str(obj) for key, obj in storage.all().items()
+                      if type(obj).__name__ == words[0]]
+                print(nl)
+        else:
+            new_list = [str(obj) for key, obj in storage.all().items()]
+            print(new_list)
 
     def do_update(self, args):
         '''
